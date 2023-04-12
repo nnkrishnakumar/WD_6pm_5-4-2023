@@ -1,0 +1,12 @@
+How many kind of datatype in python:
+
+1. integer --> int
+2. float 
+3. string --> str
+4. list 
+5. tuple
+6. set
+7. dictionary --> dict
+8. boolean --> bool
+9. complex 
+10. frozenset
