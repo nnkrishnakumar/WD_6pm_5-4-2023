@@ -1,4 +1,4 @@
-How many kind of datatype in python:
+A.  How many kind of datatype in python:
 
 1. integer --> int
 2. float 
@@ -10,3 +10,8 @@ How many kind of datatype in python:
 8. boolean --> bool
 9. complex 
 10. frozenset
+
+B. Fromatting string
+    > .format()
+    > f string/ F string
+    
