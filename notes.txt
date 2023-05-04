@@ -14,4 +14,11 @@ A.  How many kind of datatype in python:
 B. Fromatting string
     > .format()
     > f string/ F string
-    
+
+Operators
+
+input() function
+if else:
+nested if else
+if elif else
+nested if elif else.
