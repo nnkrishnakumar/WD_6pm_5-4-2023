@@ -22,3 +22,8 @@ if else:
 nested if else
 if elif else
 nested if elif else.
+
+loop:
+for loop 
+while loop
+
