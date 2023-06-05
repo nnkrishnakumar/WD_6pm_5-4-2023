@@ -1,0 +1,252 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> create database WD_6pm;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| wd_6pm             |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use wd_6pm;
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| wd_6pm             |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use wd_6pm;
+Database changed
+mysql> show tables;
+Empty set (0.02 sec)
+
+mysql> create table college("sn" int,name varchar(100),branch varchar(50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"sn" int,name varchar(100),branch varchar(50))' at line 1
+mysql> create table college(sn int,name varchar(100),branch varchar(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| college          |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> desc college;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| sn     | int          | YES  |     | NULL    |       |
+| name   | varchar(100) | YES  |     | NULL    |       |
+| branch | varchar(50)  | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into college values(1,"krishna","MCA");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from college;
++------+---------+--------+
+| sn   | name    | branch |
++------+---------+--------+
+|    1 | krishna | MCA    |
++------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into college values(2,"Mohan","BCA");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into college values(3,"Rohan","BTECH"),(4,"Sita","BBA"),(5,"Gita","MBA");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from college;
++------+---------+--------+
+| sn   | name    | branch |
++------+---------+--------+
+|    1 | krishna | MCA    |
+|    2 | Mohan   | BCA    |
+|    3 | Rohan   | BTECH  |
+|    4 | Sita    | BBA    |
+|    5 | Gita    | MBA    |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from college;
++------+---------+--------+
+| sn   | name    | branch |
++------+---------+--------+
+|    1 | krishna | MCA    |
+|    2 | Mohan   | BCA    |
+|    3 | Rohan   | BTECH  |
+|    4 | Sita    | BBA    |
+|    5 | Gita    | MBA    |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select sn,name from college;
++------+---------+
+| sn   | name    |
++------+---------+
+|    1 | krishna |
+|    2 | Mohan   |
+|    3 | Rohan   |
+|    4 | Sita    |
+|    5 | Gita    |
++------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select sn,branch from college;
++------+--------+
+| sn   | branch |
++------+--------+
+|    1 | MCA    |
+|    2 | BCA    |
+|    3 | BTECH  |
+|    4 | BBA    |
+|    5 | MBA    |
++------+--------+
+5 rows in set (0.00 sec)
+
+mysql> -- krishna
+mysql> -- where clause
+mysql> select * from college;
++------+---------+--------+
+| sn   | name    | branch |
++------+---------+--------+
+|    1 | krishna | MCA    |
+|    2 | Mohan   | BCA    |
+|    3 | Rohan   | BTECH  |
+|    4 | Sita    | BBA    |
+|    5 | Gita    | MBA    |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from college where branch="BTECH";
++------+-------+--------+
+| sn   | name  | branch |
++------+-------+--------+
+|    3 | Rohan | BTECH  |
++------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> create table restra(sn int,name varchar(100),billing float);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| college          |
+| restra           |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from college;
++------+---------+--------+
+| sn   | name    | branch |
++------+---------+--------+
+|    1 | krishna | MCA    |
+|    2 | Mohan   | BCA    |
+|    3 | Rohan   | BTECH  |
+|    4 | Sita    | BBA    |
+|    5 | Gita    | MBA    |
++------+---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from reatra;
+ERROR 1146 (42S02): Table 'wd_6pm.reatra' doesn't exist
+mysql> select * from restra'
+    '> '
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+'' at line 1
+mysql> select * from restra;
+Empty set (0.00 sec)
+
+mysql> desc restra;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| sn      | int          | YES  |     | NULL    |       |
+| name    | varchar(100) | YES  |     | NULL    |       |
+| billing | float        | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into restra values(1,"krishna",10.50);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
++------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into restra values(1,"Rohan",43);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
++------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra where billing<40;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
++------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> ^C
