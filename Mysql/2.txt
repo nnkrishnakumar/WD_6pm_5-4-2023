@@ -1,0 +1,612 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 25
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| wd_6pm             |
+| world              |
++--------------------+
+7 rows in set (0.01 sec)
+
+mysql> use wd_6pm;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| college          |
+| restra           |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra'
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+'' at line 1
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
++------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into restra(3,"Roshani",32.9320),(4,"Sohan",44),(5,"Monu",41);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3,"Roshani",32.9320),(4,"Sohan",44),(5,"Monu",41)' at line 1
+mysql> insert into restra values(3,"Roshani",32.9320),(4,"Sohan",44),(5,"Monu",41);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
++------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into restra values(6,"Roshani",5),(7,"Sohan",12),(8,"Monu",23);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from restra where billing>10 and billing<30;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
++------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from restra where billing>10 or billing<30;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> -- not
+mysql> select * from restra where billing>10 and billing <30;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
++------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from restra where not billing>10 and not billing <30;
+Empty set (0.00 sec)
+
+mysql> select * from restra where billing>10 and not billing <30;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
++------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> -- order by
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing asc;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    6 | Roshani |       5 |
+|    1 | krishna |    10.5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    3 | Roshani |  32.932 |
+|    5 | Monu    |      41 |
+|    1 | Rohan   |      43 |
+|    4 | Sohan   |      44 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from restra order by name asc;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    5 | Monu    |      41 |
+|    8 | Monu    |      23 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    6 | Roshani |       5 |
+|    4 | Sohan   |      44 |
+|    7 | Sohan   |      12 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from restra order by name desc;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    4 | Sohan   |      44 |
+|    7 | Sohan   |      12 |
+|    3 | Roshani |  32.932 |
+|    6 | Roshani |       5 |
+|    1 | Rohan   |      43 |
+|    5 | Monu    |      41 |
+|    8 | Monu    |      23 |
+|    1 | krishna |    10.5 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing desc;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    4 | Sohan   |      44 |
+|    1 | Rohan   |      43 |
+|    5 | Monu    |      41 |
+|    3 | Roshani |  32.932 |
+|    8 | Monu    |      23 |
+|    7 | Sohan   |      12 |
+|    1 | krishna |    10.5 |
+|    6 | Roshani |       5 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    6 | Roshani |       5 |
+|    1 | krishna |    10.5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    3 | Roshani |  32.932 |
+|    5 | Monu    |      41 |
+|    1 | Rohan   |      43 |
+|    4 | Sohan   |      44 |
++------+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing and name;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
++------+---------+---------+
+8 rows in set, 6 warnings (0.00 sec)
+
+mysql> -- insert
+mysql> insert into restra values(9,"Soni"32);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '32)' at line 1
+mysql> insert into table restra values(9,"Soni"32);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table restra values(9,"Soni"32)' at line 1
+mysql> insert into restra values(9,"soni",43);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
++------+---------+---------+
+9 rows in set (0.00 sec)
+
+mysql> insert into restra values(10,"Sunaina",32),(11,"Monika",11);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
++------+---------+---------+
+11 rows in set (0.00 sec)
+
+mysql> insert into restra(sn,billing) values(12,54);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | NULL    |      54 |
++------+---------+---------+
+12 rows in set (0.00 sec)
+
+mysql> insert into restra(billing,name) values(54,"Rekha");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | NULL    |      54 |
+| NULL | Rekha   |      54 |
++------+---------+---------+
+13 rows in set (0.00 sec)
+
+mysql> insert into restra values(14,"",56);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | NULL    |      54 |
+| NULL | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> select * from restra where name is null;
++------+------+---------+
+| sn   | name | billing |
++------+------+---------+
+|   12 | NULL |      54 |
++------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra where sn is null;
++------+-------+---------+
+| sn   | name  | billing |
++------+-------+---------+
+| NULL | Rekha |      54 |
++------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra where name is null or sn is null;
++------+-------+---------+
+| sn   | name  | billing |
++------+-------+---------+
+|   12 | NULL  |      54 |
+| NULL | Rekha |      54 |
++------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra where sn is not null;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | NULL    |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+13 rows in set (0.00 sec)
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | NULL    |      54 |
+| NULL | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> update restra set name ="Krishna" where name =12;
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: 'krishna'
+mysql> update restra set name "Krishna" where name =12;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"Krishna" where name =12' at line 1
+mysql> update restra set name "krishna" where sn=12;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"krishna" where sn=12' at line 1
+mysql> update restra set name="krishna" where sn=12;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | krishna |      54 |
+| NULL | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> update restra set sn=13 where name="Rekha";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | krishna |      54 |
+|   13 | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> update restra set sn=100 where billing=54;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    1 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|  100 | krishna |      54 |
+|  100 | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> update restra set sn=2 where billing=10.5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    2 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|  100 | krishna |      54 |
+|  100 | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> update restra set sn=12 where name="krishna" and billing=54;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    2 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | krishna |      54 |
+|  100 | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> update restra sn=13 where name="Rekha";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=13 where name="Rekha"' at line 1
+mysql> update restra set sn=13 where name ="Rekha"
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from restra;
++------+---------+---------+
+| sn   | name    | billing |
++------+---------+---------+
+|    2 | krishna |    10.5 |
+|    1 | Rohan   |      43 |
+|    3 | Roshani |  32.932 |
+|    4 | Sohan   |      44 |
+|    5 | Monu    |      41 |
+|    6 | Roshani |       5 |
+|    7 | Sohan   |      12 |
+|    8 | Monu    |      23 |
+|    9 | soni    |      43 |
+|   10 | Sunaina |      32 |
+|   11 | Monika  |      11 |
+|   12 | krishna |      54 |
+|   13 | Rekha   |      54 |
+|   14 |         |      56 |
++------+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> alter table restra add primary key sn;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table restra add primary key (sn);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
+| 14 |         |      56 |
++----+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql>
