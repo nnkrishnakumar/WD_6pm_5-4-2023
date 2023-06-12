@@ -1,0 +1,600 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| wd_12              |
+| wd_6pm             |
+| world              |
++--------------------+
+8 rows in set (0.02 sec)
+
+mysql> use wd_6pm;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| college          |
+| restra           |
++------------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
+| 14 |         |      56 |
++----+---------+---------+
+14 rows in set (0.01 sec)
+
+mysql> delete from restra where sn=14;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
++----+---------+---------+
+13 rows in set (0.00 sec)
+
+mysql> -- delete tables
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| college          |
+| restra           |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from college;
++------+---------+--------+
+| sn   | name    | branch |
++------+---------+--------+
+|    1 | krishna | MCA    |
+|    2 | Mohan   | BCA    |
+|    3 | Rohan   | BTECH  |
+|    4 | Sita    | BBA    |
+|    5 | Gita    | MBA    |
++------+---------+--------+
+5 rows in set (0.01 sec)
+
+mysql> delete table college;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table college' at line 1
+mysql> delet from college;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delet from college' at line 1
+mysql> delete from college;
+Query OK, 5 rows affected (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| college          |
+| restra           |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> delete college;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from college;
+Empty set (0.00 sec)
+
+mysql> drop college;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'college' at line 1
+mysql> drop table college;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| restra           |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> --limit
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '--limit' at line 1
+mysql> -- limit
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
++----+---------+---------+
+13 rows in set (0.00 sec)
+
+mysql> select * from restra limit 2;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
++----+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing asc;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  6 | Roshani |       5 |
+|  2 | krishna |    10.5 |
+| 11 | Monika  |      11 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+| 10 | Sunaina |      32 |
+|  3 | Roshani |  32.932 |
+|  5 | Monu    |      41 |
+|  1 | Rohan   |      43 |
+|  9 | soni    |      43 |
+|  4 | Sohan   |      44 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
++----+---------+---------+
+13 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing asc limit 2;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  6 | Roshani |       5 |
+|  2 | krishna |    10.5 |
++----+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing asc limit 1,2;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  2 | krishna |    10.5 |
+| 11 | Monika  |      11 |
++----+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra order by billing asc where sn between 2 and 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where sn between 2 and 1' at line 1
+mysql> select * from restra where sn between 2 and 1 in (select * from restra order by billing asc);
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> select * from restra where sn between (2 and 1) in (select * from restra order by billing asc);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'in (select * from restra order by billing asc)' at line 1
+mysql> select * from restra order by billing asc where sn between 1 and 8;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where sn between 1 and 8' at line 1
+mysql> select * from restra order by billing asc limit 1,8;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  2 | krishna |    10.5 |
+| 11 | Monika  |      11 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+| 10 | Sunaina |      32 |
+|  3 | Roshani |  32.932 |
+|  5 | Monu    |      41 |
+|  1 | Rohan   |      43 |
++----+---------+---------+
+8 rows in set (0.00 sec)
+
+mysql> -- aggregate function
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
++----+---------+---------+
+13 rows in set (0.00 sec)
+
+mysql> select sum(billing) from restra;
++--------------------+
+| sum(billing)       |
++--------------------+
+| 405.43199920654297 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(billing) from restra;
++--------------------+
+| avg(billing)       |
++--------------------+
+| 31.187076862041767 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(billing) from restra;
++----------------+
+| count(billing) |
++----------------+
+|             13 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(name) from restra;
++-------------+
+| count(name) |
++-------------+
+|          13 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(sn) from restra;
++-----------+
+| count(sn) |
++-----------+
+|        13 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select min(billing) from restra;
++--------------+
+| min(billing) |
++--------------+
+|            5 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
++----+---------+---------+
+13 rows in set (0.00 sec)
+
+mysql> select * from restra where billing in (select min(billing) from restra)
+    -> ;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  6 | Roshani |       5 |
++----+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into restra values(14,"a",5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
+| 14 | a       |       5 |
++----+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> select * from restra where nilling in (select min(billing) from restra);
+ERROR 1054 (42S22): Unknown column 'nilling' in 'IN/ALL/ANY subquery'
+mysql> select * from restra where billing in (select min(billing) from restra);
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  6 | Roshani |       5 |
+| 14 | a       |       5 |
++----+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra where billing in (select min(billing) from restra) limit 1;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  6 | Roshani |       5 |
++----+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra where billing in (select min(billing) from restra) limit 1,2;
++----+------+---------+
+| sn | name | billing |
++----+------+---------+
+| 14 | a    |       5 |
++----+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra where billing in (select min(billing) from restra) limit 1,1;
++----+------+---------+
+| sn | name | billing |
++----+------+---------+
+| 14 | a    |       5 |
++----+------+---------+
+1 row in set (0.00 sec)
+
+mysql> select max(billing) from restra;
++--------------+
+| max(billing) |
++--------------+
+|           54 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra where billing in (select max(billing) from restra);
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
++----+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra where billing in (select max(billing) from restra) limit 1,2;
++----+-------+---------+
+| sn | name  | billing |
++----+-------+---------+
+| 13 | Rekha |      54 |
++----+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra where billing in (select max(billing) from restra) limit 1,1;
++----+-------+---------+
+| sn | name  | billing |
++----+-------+---------+
+| 13 | Rekha |      54 |
++----+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from restra;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  2 | krishna |    10.5 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 10 | Sunaina |      32 |
+| 11 | Monika  |      11 |
+| 12 | krishna |      54 |
+| 13 | Rekha   |      54 |
+| 14 | a       |       5 |
++----+---------+---------+
+14 rows in set (0.00 sec)
+
+mysql> select * from restra where name like "M__u";
++----+------+---------+
+| sn | name | billing |
++----+------+---------+
+|  5 | Monu |      41 |
+|  8 | Monu |      23 |
++----+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra where name like "__u";
+Empty set (0.00 sec)
+
+mysql> select * from restra where name like "___u";
++----+------+---------+
+| sn | name | billing |
++----+------+---------+
+|  5 | Monu |      41 |
+|  8 | Monu |      23 |
++----+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from restra where name like "%u";
++----+------+---------+
+| sn | name | billing |
++----+------+---------+
+|  5 | Monu |      41 |
+|  8 | Monu |      23 |
++----+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into restra values(15,"shantanu",32);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from restra;
++----+----------+---------+
+| sn | name     | billing |
++----+----------+---------+
+|  1 | Rohan    |      43 |
+|  2 | krishna  |    10.5 |
+|  3 | Roshani  |  32.932 |
+|  4 | Sohan    |      44 |
+|  5 | Monu     |      41 |
+|  6 | Roshani  |       5 |
+|  7 | Sohan    |      12 |
+|  8 | Monu     |      23 |
+|  9 | soni     |      43 |
+| 10 | Sunaina  |      32 |
+| 11 | Monika   |      11 |
+| 12 | krishna  |      54 |
+| 13 | Rekha    |      54 |
+| 14 | a        |       5 |
+| 15 | shantanu |      32 |
++----+----------+---------+
+15 rows in set (0.00 sec)
+
+mysql> select * from restra where name like "%u";
++----+----------+---------+
+| sn | name     | billing |
++----+----------+---------+
+|  5 | Monu     |      41 |
+|  8 | Monu     |      23 |
+| 15 | shantanu |      32 |
++----+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from restra where name like "s%";
++----+----------+---------+
+| sn | name     | billing |
++----+----------+---------+
+|  4 | Sohan    |      44 |
+|  7 | Sohan    |      12 |
+|  9 | soni     |      43 |
+| 10 | Sunaina  |      32 |
+| 15 | shantanu |      32 |
++----+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from restra where name like "_o%";
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  1 | Rohan   |      43 |
+|  3 | Roshani |  32.932 |
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
+| 11 | Monika  |      11 |
++----+---------+---------+
+9 rows in set (0.00 sec)
+
+mysql> -- between
+mysql> select * from restra;
++----+----------+---------+
+| sn | name     | billing |
++----+----------+---------+
+|  1 | Rohan    |      43 |
+|  2 | krishna  |    10.5 |
+|  3 | Roshani  |  32.932 |
+|  4 | Sohan    |      44 |
+|  5 | Monu     |      41 |
+|  6 | Roshani  |       5 |
+|  7 | Sohan    |      12 |
+|  8 | Monu     |      23 |
+|  9 | soni     |      43 |
+| 10 | Sunaina  |      32 |
+| 11 | Monika   |      11 |
+| 12 | krishna  |      54 |
+| 13 | Rekha    |      54 |
+| 14 | a        |       5 |
+| 15 | shantanu |      32 |
++----+----------+---------+
+15 rows in set (0.00 sec)
+
+mysql> select * from restra where sn>=4 and sn<10;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
++----+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from restra where sn>=4 and sn<=9;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
++----+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from restra where sn between 4 and 9;
++----+---------+---------+
+| sn | name    | billing |
++----+---------+---------+
+|  4 | Sohan   |      44 |
+|  5 | Monu    |      41 |
+|  6 | Roshani |       5 |
+|  7 | Sohan   |      12 |
+|  8 | Monu    |      23 |
+|  9 | soni    |      43 |
++----+---------+---------+
+6 rows in set (0.00 sec)

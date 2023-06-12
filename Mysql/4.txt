@@ -1,0 +1,331 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 26
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.02 sec)
+
+mysql> create database WD_6pm;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| wd_6pm             |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use wd_6pm;
+Database changed
+mysql> create table collage(roll int primary key, name varchar(100),branch varchar(20));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table hostel(roll int primary key, room int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| collage          |
+| hostel           |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into collage values(1,"a","CS"),(2,"b","MCA"),(3,"c","BCA"),(4,"d","BTech");
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from collage;
++------+------+--------+
+| roll | name | branch |
++------+------+--------+
+|    1 | a    | CS     |
+|    2 | b    | MCA    |
+|    3 | c    | BCA    |
+|    4 | d    | BTech  |
++------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> insert into hostel values(1,202),(2,404),(10,454);
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from hostel;
++------+------+
+| roll | room |
++------+------+
+|    1 |  202 |
+|    2 |  404 |
+|   10 |  454 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> -- inner join, left join, right join, full join/full outer join
+mysql> select * from college inner join hostel on college.roll=hostel.roll;
+ERROR 1146 (42S02): Table 'wd_6pm.college' doesn't exist
+mysql> select * from collage inner join hostel on collage.roll=hostel.roll;
++------+------+--------+------+------+
+| roll | name | branch | roll | room |
++------+------+--------+------+------+
+|    1 | a    | CS     |    1 |  202 |
+|    2 | b    | MCA    |    2 |  404 |
++------+------+--------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> select collage.roll,collage.name,collage.branch,hostel.room from collage inner join hostel on collage.roll=hostel.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
++------+------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> -- alise
+mysql> select collage.roll,collage.name,collage.branch,hostel.room from collage as c inner join hostel as h on collage.roll=hostel.roll;
+ERROR 1054 (42S22): Unknown column 'collage.roll' in 'field list'
+mysql> select c.roll,c.name,c.branch,h.room from collage as c inner join hostel as h on c.roll=h.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
++------+------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> -- Left join
+mysql> select * from collage left join hostel on collage.roll=hostel.roll;
++------+------+--------+------+------+
+| roll | name | branch | roll | room |
++------+------+--------+------+------+
+|    1 | a    | CS     |    1 |  202 |
+|    2 | b    | MCA    |    2 |  404 |
+|    3 | c    | BCA    | NULL | NULL |
+|    4 | d    | BTech  | NULL | NULL |
++------+------+--------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select collage.roll, collage.name,collage.branch, hostel.room from collage left join hostel on collage.roll=hostel.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
+|    3 | c    | BCA    | NULL |
+|    4 | d    | BTech  | NULL |
++------+------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select c.roll, c.name,c.branch,h.room from collage as c left join hostel as h on c.roll=h.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
+|    3 | c    | BCA    | NULL |
+|    4 | d    | BTech  | NULL |
++------+------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> -- right join
+mysql> select * from collage right join hostel on collage.roll=hostel.roll;
++------+------+--------+------+------+
+| roll | name | branch | roll | room |
++------+------+--------+------+------+
+|    1 | a    | CS     |    1 |  202 |
+|    2 | b    | MCA    |    2 |  404 |
+| NULL | NULL | NULL   |   10 |  454 |
++------+------+--------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> select collage.roll,collage.name,collage.branch,hostel.room from collage right join hostel on collage.roll=hostel.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
+| NULL | NULL | NULL   |  454 |
++------+------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select c.roll,c.name,c.branch,h.room from collage as c right join hostel as h on c.roll=h.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
+| NULL | NULL | NULL   |  454 |
++------+------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> -- full join/full outer join
+mysql> select * from collage left join hostel on collage.roll=hostel.roll union select * from collage right join hostel on collage.roll=hostel.roll;
++------+------+--------+------+------+
+| roll | name | branch | roll | room |
++------+------+--------+------+------+
+|    1 | a    | CS     |    1 |  202 |
+|    2 | b    | MCA    |    2 |  404 |
+|    3 | c    | BCA    | NULL | NULL |
+|    4 | d    | BTech  | NULL | NULL |
+| NULL | NULL | NULL   |   10 |  454 |
++------+------+--------+------+------+
+5 rows in set (0.01 sec)
+
+mysql> select collage.roll,collage.name,collage.branch from collage left join hostel on collage.roll=hostel.roll union select collage.roll, collage.name,collage.branch,hostel.room from collage right join hostel on collage.roll=hostel.roll;
+ERROR 1222 (21000): The used SELECT statements have a different number of columns
+mysql> select collage.roll,collage.name,collage.branch,hostel.room from collage left join hostel on collage.roll=hostel.roll union select collage.roll, collage.name,collage.branch,hostel.room from collage right join hostel on collage.roll=hostel.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
+|    3 | c    | BCA    | NULL |
+|    4 | d    | BTech  | NULL |
+| NULL | NULL | NULL   |  454 |
++------+------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select c.roll,c.name,c.branch,h.room from collage as c left join hostel as h on c.roll=h.roll union select c.roll,c.name,c.branch,h.room from collage as c right join hostel as h on c.roll=h.roll'
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+'' at line 1
+mysql> select c.roll,c.name,c.branch,h.room from collage as c left join hostel as h on c.roll=h.roll union select c.roll,c.name,c.branch,h.room from collage as c right join hostel as h on c.roll=h.roll;
++------+------+--------+------+
+| roll | name | branch | room |
++------+------+--------+------+
+|    1 | a    | CS     |  202 |
+|    2 | b    | MCA    |  404 |
+|    3 | c    | BCA    | NULL |
+|    4 | d    | BTech  | NULL |
+| NULL | NULL | NULL   |  454 |
++------+------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> -- foreign key
+mysql> create table collage2(roll int primary key, name varchar(100),branch varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table hostel2(roll int primary key, room int, foreign key(roll) references collage(roll));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| collage          |
+| collage2         |
+| hostel           |
+| hostel2          |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> drop hostel2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'hostel2' at line 1
+mysql> drop table hostel2;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_wd_6pm |
++------------------+
+| collage          |
+| collage2         |
+| hostel           |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> create table hostel2(roll int primary key,room int, foreign key(roll) references collage2(roll));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from collage2;
+Empty set (0.00 sec)
+
+mysql> insert into collage2 values(1,"a","CS"),(2,"b","MTech)
+    ">  =;
+    ">
+    "> ";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> insert into collage2 values(1,"a","CS"),(2,"b","MTech"),(3,"c","BTech");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from collage2;
++------+------+--------+
+| roll | name | branch |
++------+------+--------+
+|    1 | a    | CS     |
+|    2 | b    | MTech  |
+|    3 | c    | BTech  |
++------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into hostel values(1,202);
+ERROR 1062 (23000): Duplicate entry '1' for key 'hostel.PRIMARY'
+mysql> insert into hostel2 values(1,202);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from hostel2;
++------+------+
+| roll | room |
++------+------+
+|    1 |  202 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into hostel values(10,202);
+ERROR 1062 (23000): Duplicate entry '10' for key 'hostel.PRIMARY'
+mysql> insert into hostel2 values(10,202);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`wd_6pm`.`hostel2`, CONSTRAINT `hostel2_ibfk_1` FOREIGN KEY (`roll`) REFERENCES `collage2` (`roll`))
+mysql> select * from collage2;
++------+------+--------+
+| roll | name | branch |
++------+------+--------+
+|    1 | a    | CS     |
+|    2 | b    | MTech  |
+|    3 | c    | BTech  |
++------+------+--------+
+3 rows in set (0.00 sec)
+
+mysql> insert into collage2 values(10,"e","MCA");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into hostel2 values(10,202);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from hostel2;
++------+------+
+| roll | room |
++------+------+
+|    1 |  202 |
+|   10 |  202 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> -- composite, cur date, cur time , now()
